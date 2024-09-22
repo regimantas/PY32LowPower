@@ -56,6 +56,8 @@ void PY32LowPower::deepSleep(uint32_t ms) {
     uint64_t max_cycles = 65535 * 8;  // Maksimali vienos pertraukos trukmė
     // while total_cycles > 0 loop with sleep use --max_cycles. and make cycle in limit of max_cycles
     while (total_cycles > 0) {
+        delay(1); // Minimum delay for Arduino not to hang
+        total_cycles--; // Decrease total_cycles by 1 ms to account for the delay
         uint32_t cycles = (total_cycles > max_cycles) ? max_cycles : total_cycles;
         internalDeepSleep(cycles);
         total_cycles -= cycles;
@@ -63,7 +65,7 @@ void PY32LowPower::deepSleep(uint32_t ms) {
 }
 
 
-
+extern "C" void LPTIM1_IRQHandler(void) __attribute__((used));
 extern "C" void LPTIM1_IRQHandler(void) {
     if (__HAL_LPTIM_GET_FLAG(&hlptim, LPTIM_FLAG_ARRM) != RESET) {
         __HAL_LPTIM_CLEAR_FLAG(&hlptim, LPTIM_FLAG_ARRM);

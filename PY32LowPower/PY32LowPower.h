@@ -15,7 +15,7 @@ public:
     void exitSleep();
 
 private:
-    void internalDeepSleep(uint32_t cycles);
+    void internalDeepSleep(uint32_t cycles) __attribute__((used));
 };
 
 __weak void HAL_LPTIM_MspInit(LPTIM_HandleTypeDef *hlptim);

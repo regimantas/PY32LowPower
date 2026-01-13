@@ -4,3 +4,8 @@ Make deepSleep with Arduino posible in 10 cents PY32F002A microcontroller's :)
 
 
 The power consumption drops to as low as 7µA. However, calling the analogWrite() function before entering deep sleep increases the sleep mode power consumption to 70µA, which is 10 times higher. To reduce power usage, you should call HAL_GPIO_DeInit(GPIOA, GPIO_PIN_All); after analogWrite(), and then reinitialize the pins from scratch, setting them as input, output, etc.
+
+
+> **Note:** This library is integrated into the **Regimantas Arduino-PY32 core**.  
+> Core repository: https://github.com/regimantas/Arduino-PY32  
+> Board Manager URL: `https://regsens.com/package_py32_index.json`
